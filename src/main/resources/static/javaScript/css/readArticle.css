@@ -1,0 +1,53 @@
+.read-article{
+    padding: 60px 64px;
+    background-color:#f8f3e9;
+    margin: 0 auto;
+    width:60%;
+    min-height:1000px;
+    height:auto!important;
+
+}
+.article-content{
+    min-height: 900px;
+    height:auto!important;
+}
+.right-menu dd a span em {
+
+    display: block;
+    height: 48px;
+    padding-top: 12px;
+    color: rgba(67, 207, 246, 0.4);
+    text-align: center;
+    font: 12px/16px PingFangSC-Regular,'-apple-system',Simsun;
+    background-color: #8a6d3b;
+
+}
+.right-menu {
+    bottom: 0px;
+    z-index: 101;
+    right: 50%;
+    bottom: 0;
+    margin-right: -530px;
+    position: fixed;
+    width: 60px;
+}
+.right-menu a{
+    width :56px;
+    height:36px;
+    color:black;
+}
+.right-menu dd{
+    border: 1px solid rgba(0,0,0,.1);
+    border-top-color: rgba(0, 0, 0, 0.1);
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top: none;
+    background-color: #f6f1e7;
+}
+dd a:hover span  {
+    color: #ff3955;
+}
+body {
+    background-color: #ebe5d8;
+}
+dd a:hover{text-decoration:none}

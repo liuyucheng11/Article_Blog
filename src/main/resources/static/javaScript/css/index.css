@@ -1,0 +1,313 @@
+ul.search-result {
+    width: 900px;
+    position: relative;
+    margin-top: 32px;
+    margin-left: 80px;
+}
+
+div.right-panel {
+    margin-left: 25px;
+}
+
+button.btn-sm {
+    display: block;
+    margin-top: 6px;
+}
+
+.summary {
+    height: 70px;
+    width: 250px;
+    overflow: hidden;
+    display: block;
+}
+
+div.right-panel {
+    float: left;
+    padding-top: 7%;
+}
+
+div.article-title {
+    float: left;
+}
+
+div.article-info {
+    display: block;
+
+    padding-left: 23%;
+}
+
+#search-result li.article-list {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    padding: 22px 0;
+    padding-top: 22px;
+    border-top: 1px solid #ac2925;
+    width: 800px;
+    border-radius: 25px;
+    border: 2px solid #8AC007;
+    background-color: white;
+    margin-top: 15px;
+}
+
+#search-result {
+    /*background-color: white;*/
+    width: 1050px;
+    /*border-radius: 25px;*/
+    /*border: 2px solid #6d75ac;*/
+    background-color: white;
+    margin-left: 17%;
+
+}
+
+h1.article_id {
+    display: none;
+}
+
+#footer {
+    background: #6d75ac;
+    border-top: 1px solid #e2e4e6;
+    font-size: 12px;
+    color: #f4f6a7;
+    padding: 27px 0;
+    min-width: 620px;
+    margin-top: 60px;
+}
+
+#footer .waper {
+    width: auto;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+div.li-menu {
+    width: 230px;
+}
+
+.li-menu li {
+    list-style: none outside none;
+    padding: 26px 0 0;
+    font-size: 20px;
+}
+
+div.my-article {
+    background-color: white;
+    margin-left: 20%;
+}
+
+div.user-info {
+    width: 230px;
+}
+
+div.user-info h3, p {
+    padding-left: 60px;
+    padding-top: 20px;
+
+}
+
+.li-menu yc:hover {
+    color: red;
+    font-weight: 700;
+}
+
+.li-menu span:hover {
+}
+
+div.my-write-article {
+    width: 700px;
+    height: 800px;
+}
+
+#my-collection {
+}
+
+div.my-collection {
+    max-height:100%;
+    height: 700px;
+    position:absolute;overflow-y:auto;overflow-x:hidden;
+}
+
+div.my-follow {
+
+    width: 700px;
+    height: 600px;
+}
+
+div.my-score {
+
+    width: 700px;
+    height: 600px;
+}
+
+div.li-menu {
+    height: 600px;
+    background-color: #f9fffb;
+    float: left;
+}
+
+div.my-item {
+    float: left;
+    margin-left: 50px;
+}
+
+div.my-item .title {
+    padding-left: 40%;
+    font-family: PingFangSC-Regular, HelveticaNeue-Light, 'Helvetica Neue Light', 'Microsoft YaHei', sans-serif;
+    font-size: 25px;
+
+}
+
+#my-collection ul {
+    height: 600px;
+    width: 700px;
+}
+
+#my-collection li {
+    float: left;
+    overflow: hidden;
+    width: 325px;
+    padding: 20px 0;
+    border-bottom: 1px solid #e1ffd4;
+    margin-top: 20px;
+    padding-bottom: 30px;
+}
+
+.collect-info {
+    padding-left: 10px;
+    padding-top: 20px;
+}
+
+.operation .btn-sm {
+    display: inline;
+}
+
+#my-collection h4 {
+    padding-left: 50px;
+}
+
+li.article-list {
+    position: relative;
+}
+
+.select-type {
+    width: 40%;
+    margin-left: 25%;
+}
+
+.user-interest {
+    width: 600px;
+    margin: 0 auto;
+}
+
+#save-your-interest {
+    margin-top: 10px;
+    margin-left: 80px;
+}
+
+.hot-articles {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.hot-articles div.panel {
+    float: left;
+    margin-left: 7%;
+    width: 420px;
+}
+
+.book-info {
+    width: 300px;
+    padding: 15px ;
+    padding-left:60px ;
+    border-bottom: solid 2px #85e9e0;
+    border-radius: 3px;
+
+}
+
+.book-info p.digital {
+    font-size: 12px;
+    overflow: hidden;
+    height: 24px;
+    margin-bottom: 4px;
+    padding: 3px 0 0;
+    color: #bf2c24;
+}
+
+.book-info p.digital em {
+    font-family: Arial;
+    font-size: 18px;
+    margin-right: 3px;
+}
+.book-info p.author i {
+
+    font-family: Arial;
+    margin: 0 5px;
+
+}
+.book-info p.author {
+
+    font-family: PingFangSC-Regular,'-apple-system',Simsun;
+    font-size: 12px;
+    overflow: hidden;
+    padding-left: 15px;
+}
+.book-info a{
+    text-decoration: none;
+    color: #6d75ac;
+}
+
+.book-info h3 {
+    font: 700 14px/18px Arial;
+    width: 36px;
+    height: 18px;
+    margin-bottom: 3px;
+    text-align: center;
+    color: #fff;
+    background: #bf2c24;
+}
+
+.book-info h4 {
+
+    font: 16px/24px PingFangSC-Regular, HelveticaNeue-Light, 'Helvetica Neue Light', 'Microsoft YaHei', sans-serif;
+    overflow: hidden;
+    height: 24px;
+    color: #1a1a1a;
+}
+
+.book-list ul, li {
+    list-style: none outside none;
+
+}
+.book-list li{
+    margin-top:20px;
+}
+.today-recommend button.btn-sm {
+    display: inline;
+
+}
+.today-recommend{
+    width:40%;
+    margin : 0 auto;
+}
+.today-recommend li{
+    margin-left: 20%;
+    width: 300px;
+}
+.navbar-right~.navbar-right {
+    margin-right: 0;
+    margin-left: 1355px;
+}
+.my-write-article h4{
+    padding-left: 50px;
+}
+.my-write-article li{
+    float: left;
+    overflow: hidden;
+    width: 275px;
+    padding: 20px 0;
+    border-bottom: 1px solid #e1ffd4;
+    margin-top: 20px;
+    padding-bottom: 30px;
+
+}
+

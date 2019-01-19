@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./javaScript/bootstrapValidator.css">
+    <script src="./javaScript/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./javaScript/register.js"></script>
+    <script src="./javaScript/bootstrapValidator.js"></script>
+
+<style>
+    body{
+        background-color: #9d9d9d;
+    }
+    #form1{
+        margin-left: 600px;
+        margin-top:130px;
+        width:400px;
+        height:550px;
+        background-color: white;
+    }
+    .row{
+        padding-left:85px;
+        padding-top:15px;
+    }
+    #title{
+        padding-left:100px ;
+    }
+    #registerbutton{
+        padding-left:160px;
+        margin-top:40px;
+    }
+</style>
+</head>
+<body>
+         <form id="registerForm" method="POST" role="form" >
+             <div id="form1">
+             <div class="row  text-danger" id="title"><h3>请输入注册信息</h3></div>
+             <div class="row">
+                 <div class="col-lg-8">
+                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                     <input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名">
+
+                 </div>
+                 </div>
+
+             <div class="row">
+                 <div class="row text-info">
+                        请选择您的性别
+                 </div>
+                 <div class="row">
+                 <label class="radio-inline">
+
+                     <input type="radio"  name="sex" id="male"  value="1"> 男
+                 </label>
+                 <label class="radio-inline">
+                     <input type="radio"  name="sex" id="female"  value="2"> 女
+                 </label>
+                 </div>
+             </div>
+                 <div class="row">
+                     <div class="col-lg-8">
+                            <span
+                                    class="glyphicon glyphicon-user form-control-feedback"></span>
+                         <input type="text" name="age" id="age" class="form-control" placeholder="输入您的年龄" >
+
+                     </div>
+                 </div>
+                 <div class="row">
+                     <div class="col-lg-8">
+                            <span
+                                    class="glyphicon glyphicon-user form-control-feedback"></span>
+                         <input type="text" name="address" id="address" class="form-control" placeholder="输入您的地址" >
+
+                     </div>
+                 </div>
+                 <div class="row">
+                     <div class="col-lg-8">
+                          <span
+                                  class="glyphicon glyphicon-briefcase form-control-feedback"></span>
+                         <input type="text" name="occupation" id="occupation" class="form-control" placeholder="您的职业">
+
+
+                     </div>
+
+                 </div>
+             <div class="row">
+                 <div class="col-lg-8">
+                       <span
+                               class="glyphicon glyphicon-lock form-control-feedback"></span>
+                     <input type="password" name="password" id="password" class="form-control" placeholder="请设置您的密码" >
+
+                 </div>
+             </div>
+             <div class="row">
+                 <div class="col-lg-8">
+                       <span
+                               class="glyphicon glyphicon-lock form-control-feedback"></span>
+                     <input type="password" name="repassword" id="repassword" class="form-control" placeholder="确认您的密码">
+
+                 </div>
+
+             </div>
+
+             <div class="col-lg-4 " id="registerbutton"><input type="submit" id="doregister" class="btn btn-info">  </input></div>
+         </div>
+         </form>
+</body>
+<script>
+    $("#doregister").click(
+        function () {
+            register();
+
+        }
+    )
+</script>
+</html>

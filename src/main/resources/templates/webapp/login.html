@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./javaScript/login.js"></script>
+</head>
+<style>
+    #loginForm{
+        margin-top:150px;
+    }
+        .theForm{
+            padding-left:43.6%;
+            padding-top:8px;
+        }
+    .theForm row
+    {
+        margin-top:4px;
+    }
+    .btn-default{
+        margin-left: 6px;
+        margin-top:10px;
+    }
+    .btn-info{
+        margin-left: 25px;
+        margin-top:10px;
+    }
+    #passWord{
+        margin-top:10px;
+    }
+    a {
+        padding-left:140px;
+    }
+</style>
+<body>
+<div>
+
+          <form id="loginForm" >
+
+              <div class=" text-center text-info">
+                  <h2> 请登录</h2>
+              </div>
+              <div class="theForm">
+              <div class="row">
+              <div class="col-lg-3">
+                  <input type="text" class="form-control" name="userName" id="userName" placeholder="请输入用户名">
+              </div>
+              </div>
+                 <div class="row">
+                     <div class="col-lg-3">
+                     <input type="password" class="form-control"name="passWord" id="passWord" placeholder="请输入密码">
+                     </div>
+                 </div>
+                <a href="/register">注 册</a><br/>
+
+              <button type="button" class="btn btn-info" id="login" name="login">登 录</button>
+              <button type="button" class="btn btn-default">取 消</button>
+              </div>
+
+          </form>
+
+</div>
+</body>
+<script>
+    $(function () {
+        $("#login").click(
+            function () {
+                dologin();
+            }
+        )
+
+
+    })
+</script>
+</html>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.articleshare.webproject.dao.ArticleMapper">
+    <sql id="Base_Article_Information">
+        article.articleId as articleId,
+        article.article_name as articleTitle,
+        article.userId as userId,
+        article.homeUrl as  homeUrl,
+        article.publish_date as publishDate,
+        article.article_desc as articleDesc
+    </sql>
+
+    <insert id="publishArticle" parameterType="java.util.Map">
+        insert into article (article_name,userId,homeUrl,article_type,article_desc,publish_date ) values (
+        #{articleName},
+        #{userId},
+        #{homeUrl},
+        #{articleType},
+        #{articleDesc},
+        #{publishDate}
+        )
+    </insert>
+    <select id="SearchArticle" parameterType="java.lang.String"
+            resultType="com.articleshare.webproject.domain.article.Article">
+        SELECT
+        <include refid="Base_Article_Information"/>
+        ,user.user_name as userName from article, user where
+        article.article_name like "%"#{articleTitle}"%" and article.userId = user.user_id
+    </select>
+    <select id="qryArticle" parameterType="java.util.Map"
+            resultType="com.articleshare.webproject.domain.article.Article">
+        SELECT
+        <include refid="Base_Article_Information"/>
+        ,user.user_name as userName ,article_type.type_name as articleTypeName from article, user ,article_type
+        <where>
+            <if test="articleName!=null and articleName != ''">
+                article.article_name like CONCAT('%',#{articleName},'%')
+            </if>
+            <if test="type!=null and type !=''">
+                and article.article_type = #{type}
+            </if>
+            <if test="author = null and author!=''">
+                and article.userId = #{author}
+            </if>
+            and article.userId = user.user_id
+            and article.article_type = article_type.article_type_id
+        </where>
+    </select>
+    <select id="qryArticleCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT
+        count(*) from article, user
+        <where>
+            <if test="articleName!=null and articleName != ''">
+                article.article_name like CONCAT('%',#{articleName},'%')
+            </if>
+            <if test="type!=null and type !=''">
+                and article.article_type = #{type}
+            </if>
+            <if test="author = null and author!=''">
+                and article.userId = #{author}
+            </if>
+            and article.userId = user.user_id
+        </where>
+    </select>
+    <select id="qryArticleById" parameterType="string" resultType="com.articleshare.webproject.domain.article.Article">
+        select
+        <include refid="Base_Article_Information"/>
+        ,user.user_name as userName , article.article_desc as articleDesc
+        from article ,user where article.articleId = #{articleId} and article.userId = user.user_id
+    </select>
+    <select id="qryArticleScoreById" parameterType="Integer"
+            resultType="com.articleshare.webproject.domain.article.ArticleScore">
+        select article_score.create_date as createDate,article_score.like_number as likeNumber,article_score.evaluateId,user.user_name as userName,article_score.userId,article.article_name as articleName,article_score.score,article_score.comment from article_score,user,article
+        where article_score.articleId = #{articleId} and article_score.userId = user.user_id and article.articleId = article_score.articleId
+    </select>
+    <select id="getHotCollectArticles" resultType="java.util.Map">
+        SELECT
+        article.*,
+        b.count,
+        user.user_name
+        FROM
+        (
+        SELECT
+        article_id,
+        count( * ) AS count
+        FROM
+        ( SELECT article_id FROM article_collect WHERE DATE_SUB( CURDATE( ), INTERVAL 7 DAY ) &lt;= date( collect_date ) ) a
+        GROUP BY
+        article_id
+        ORDER BY
+        count DESC
+        LIMIT 10
+        ) b,
+        article,user
+        WHERE
+        b.article_id = article.articleId and article.userId = user.user_id    </select>
+    <select id="getHotClickArticles" resultType="java.util.Map">
+        SELECT
+          article.*,
+        b.count,
+        user.user_name
+        FROM
+        (
+        SELECT
+        article_id,
+        count( * ) AS count
+        FROM
+        ( SELECT article_id FROM click_log WHERE DATE_SUB( CURDATE( ), INTERVAL 7 DAY ) &lt;= date( create_date ) ) a
+        GROUP BY
+        article_id
+        ORDER BY
+        count DESC
+        LIMIT 10
+        ) b,
+        article,user
+        WHERE
+        b.article_id = article.articleId and article.userId = user.user_id order by b.count desc
+    </select>
+    <select id="qryHotArticleByType" resultType="Integer" parameterType="java.util.List">
+        SELECT
+        article_id ,count(*) as recentClick ,article.article_type
+        FROM
+        click_log,article
+        WHERE
+        click_log.article_id IN ( SELECT article.articleId FROM article WHERE article.article_type IN
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        )
+        and click_log.article_id = article.articleId
+        and DATE_SUB( CURDATE( ), INTERVAL 5 DAY ) &lt;= date( create_date )
+        group by article_id order by recentClick desc
+    </select>
+    <select id="qryArticleByIds" resultType="com.articleshare.webproject.domain.article.Article">
+        select
+        <include refid="Base_Article_Information"/>
+        ,user_name as userName,article_type as articleType , article_type.type_name as articleTypeName
+        from article,user,article_type  where articleId in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        and article.userId = user.user_id
+        and article.article_type = article_type.article_type_id
+    </select>
+    <delete id="deleteArticleById">
+        delete from article where articleId = #{articleId}
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="javaScript/css/index.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./javaScript/bootstrap-select.min.js"></script>
+    <link href="./javaScript/css/bootstrap-select.min.css" rel="stylesheet">
+    <script src="./javaScript/defaults-zh_CN.js"></script>
+
+    <script src="./javaScript/index.js"></script>
+</head>
+<body style="background-color:#edf4ed ">
+<style>
+    /*.dropdown-menu{*/
+    /*position: relative;*/
+    /*right: 0;*/
+    /*}*/
+</style>
+<nav class="navbar navbar-default" style="background-color:#edf4ed">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li style="color: #ec971f;font-family: 'Arial Black'"><h4>阅读改变生活&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4></li>
+            <li id="write-article"><a href="#" style="color: #2e6da4">写文章</a></li>
+            <li><a href="#" class="my-article" style="color: #a94442">我的文章</a></li>
+            <li><a href="#" style="color: red">最近阅读</a></li>
+            <li id="recommend"><a href="#" style="color: #4cae4c">今日推荐</a></li>
+            <li><a href="#" class='interest-settings' style="color: #c7254e">兴趣设置</a></li>
+        </ul>
+        <div class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+                <input type="text" name="searchArticle" id="searchArticle" class="form-control" placeholder="搜索感兴趣的文章">
+            </div>
+            <button id="search" class="btn btn-primary">搜索一下</button>
+        </div>
+        <div>
+            <button class="btn-lg  btn-info  navbar-right dropdown-toggle" id="user" data-toggle="dropdown"><b
+                    class="caret"></b><span class="glyphicon glyphicon-user"> </span></button>
+            <ul class="dropdown-menu navbar-right" >
+                <li><a class="reset-password">修改密码</a></li>
+                <li><a class="exit-system">退出系统</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<nav class="navbar navbar-default classify" style="padding-left: 40%;background-color:#ffffff">
+    <ul class="nav navbar-nav ">
+        <li><a href="#" style="color: #c7254e"><span style="color: #c7254e"
+                                                     class="glyphicon glyphicon-fire"></span>热门</a></li>
+        <li><a href="#" style="color: #2e6da4" type-id="1">情感</a></li>
+        <li><a href="#" style="color: #a94442" type-id="2">励志</a></li>
+        <li><a href="#" style="color: red" type-id="3">悬疑</a></li>
+        <li><a href="#" style="color: #4cae4c" type-id="4">散文</a></li>
+        <li><a href="#" style="color:#443bff" type-id="5">生活</a></li>
+        <li><a href="#" style="color: #c7254e" type-id="6">诗歌</a></li>
+    </ul>
+</nav>
+<hr style="color: #4cae4c;width:50% ">
+
+<div id="search-result" class="panel panel-primary" style="display: none">
+    <div class="panel-heading"> 查询结果</div>
+    <div class="panel panel-body">
+        <ul class="search-result">
+            <div class="panel-heading">
+
+                <h4 style="color: #c7254e">搜索结果</h4>
+                <div class="row">
+                    <span class="count">一共&nbsp;</span>
+                    <span>&nbsp;条结果</span>
+                    <span class="totalPageNum"></span><span>页</span>
+                    <span class="btn btn-default  btn-sm  previous-page" style="margin-left: 80px">上一页</span>
+                    <span class="pageNum"></span>
+                    <span class="btn btn-default  btn-sm next-page">下一页</span>
+                    <span>当前页:&nbsp;</span>
+                    <span class="nowPageIndex"></span>
+                    <input class="input-page-num" style="margin-left: 10px;width: 60px" placeholder="跳转页号" maxlength=6/>
+                    <span class="btn btn-primary btn-sm jump-page" style="margin-left: 8px">跳转</span>
+                </div>
+            </div>
+            <li id="demo" style="display: none">
+
+                <div class="article-info">
+                    <div class="article-title">
+                        <h4>书籍1</h4>
+                        <h1 class="article_id" style="display: none">tempId</h1>
+                        <p class="author">
+
+                            <span class="glyphicon glyphicon-user"></span> <a class="name default">作者1</a>
+                            <em>|</em>
+                            <span class="glyphicon glyphicon-tag "></span>
+                            <a class="classify">情感</a>
+                            <em>|</em>
+                            <span class="glyphicon glyphicon-calendar"></span>
+                            <a class="publish-date">2018-09-12</a>
+                        </p>
+                        <hr>
+                        <span class="glyphicon glyphicon-bullhorn"></span>
+                        <p class="summary">
+                            the summary
+                        </p>
+                    </div>
+                    <div class="right-panel">
+                        <button class="btn btn-primary btn-sm read-article">开始阅读</button>
+                        <button class="btn btn-success btn-sm add-to-collection" data-toggle="modal"
+                                data-target="#collection-msg">加入收藏
+                        </button>
+                        <button class="btn btn-warning btn-sm show-baseInfo">查看信息</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="my-article" style="display: none">
+    <div class="li-menu panel panel-info">
+        <div class="user-info panel-body">
+           用户名: <h3>userName</h3>
+            ID: <p>ID</p>
+        </div>
+        <ul>
+            <li class="my-write-article"><span class="glyphicon glyphicon-pencil"></span>
+                <yc>&nbsp;我写的文章</yc>
+            </li>
+            <li class="my-collection"><span class="glyphicon glyphicon-heart"></span>
+                <yc>&nbsp;我的收藏</yc>
+            </li>
+            <li class="my-follow"><span class="glyphicon glyphicon-star"></span>
+                <yc>&nbsp;我的关注</yc>
+            </li>
+            <li class="my-score"><span class="glyphicon glyphicon-ok"></span>
+                <yc>&nbsp;我的评价</yc>
+            </li>
+        </ul>
+    </div>
+    <div class="my-item">
+        <div class="my-write-article panel panel-primary" style="display: none">
+            <div class="panel-heading">我发表文章</div>
+            <div class="panel panel-body" id="my-write-article">
+                <ul>
+
+                </ul>
+            </div>
+        </div>
+        <div class="my-collection panel panel-danger" style="display: none">
+            <div class="panel-heading">我的收藏</div>
+            <div class="panel panel-body" id="my-collection">
+                <ul>
+                    <li id="collect-demo" style="display:none;">
+                        <h4>articleTitle</h4>
+                        <h2 class="collect-date" style="display: none;">collectDate</h2>
+                        <h3 class='article-id' style="display: none">articleId</h3>
+                        <h3 class='collect-id' style="display: none">collectId</h3>
+
+                        <p class="collect-info">
+                            <span class="glyphicon glyphicon-user"></span> <a class="name default">author</a>
+                            <em>|</em>
+                            <span class="glyphicon glyphicon-tag "></span>
+                            <a class="classify">the-classify</a>
+                            <em>|</em>
+                            <span class="glyphicon glyphicon-calendar"></span>
+                            <a class="publish-date">publishDate</a>
+                        </p>
+                        <div class="operation">
+                            <button class="btn btn-primary btn-sm read-article">开始阅读</button>
+                            <button class="btn btn-warning btn-sm show-baseInfo">查看信息</button>
+                            <button type="button" class="btn btn-danger btn-sm delete-collection" data-toggle="modal"
+                                    data-target="#exampleModal">移除收藏
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="my-follow panel panel-info" style="display: none">
+            <div class="panel-heading"> 我的关注</div>
+        </div>
+        <div class="my-score panel panel-info" style="display: none">
+            <div class="panel-heading"> 我的评价</div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">确认要将改文章移除收藏夹吗？</h4>
+            </div>
+            <div class="modal-body">点击移除,可移除此文章</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger remove-collections">移除</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="delete-my-article" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="delete-mine">您确定要删除这篇一发表的文章吗(删除后无法找回！)？</h4>
+            </div>
+            <div class="modal-body">点击删除,可移除此文章</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger delete-mine">删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="collection-msg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    提示
+                </h4>
+            </div>
+            <div class="modal-body">
+                在这里添加一些文本
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div>
+</div><!-- /.modal -->
+<!--<div id="footer">-->
+<!--<div class="waper">-->
+<!--<div class="footerwaper clearfix">-->
+<!--<div class="followus r">-->
+<!--</div>-->
+<!--<div class="footer_intro l">-->
+<!--<p>Copyright © 2018 imooc.com All Rights Reserved </p>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<div class="modal fade" id="msg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="Label">
+                    温馨提示
+                </h4>
+            </div>
+            <div class="modal-body">
+                根据您的兴趣设置会给您推荐不同的书籍。
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">知道了
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div>
+</div>
+<div class="modal fade" id="reset-password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">修改密码</div>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="old-password">请输入旧密码:</label>
+                <input class="form-control" id="old-password" type="password">
+                <label for="new-password-1">新密码:</label>
+                <input class="form-control" id="new-password-1" type="password">
+                <label for="new-password-2">确认新密码:</label>
+                <input class="form-control" id="new-password-2" type="password">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="reset-pass" >确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div>
+</div>
+<div id="interest-settings" style="display: none">
+    <div class="panel panel-primary user-interest">
+        <div class="panel-heading">设置您的兴趣（最多可以选4个兴趣）</div>
+        <div class="panel-body">
+            <div class="select-type">
+                <label for="article-type">我当前的兴趣:</label>
+                <select id="article-type" class="form-control selectpicker " title="请选择您的文章分类" multiple
+                        data-live-search="true" data-max-options="4" data-size="5">
+                    <option value="1" data-content="<span class='label label-success'>情感</span>">情感</option>
+                    <option value="2" data-content="<span class='label label-info'>励志</span>">励志</option>
+                    <option value="3" data-content="<span class='label label-warning'>悬疑</span>">悬疑</option>
+                    <option value="4" data-content="<span class='label label-danger'>搞笑</span>">搞笑</option>
+                    <option value="5" data-content="<span class='label label-success'>生活</span>">生活</option>
+                    <option value="5" data-content="<span class='label label-primary'>诗歌</span>">诗歌</option>
+                </select>
+                <button id="save-your-interest" class="btn btn-success btn-sm">保存</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="hot-articles panel panel-primary" style="display: none">
+    <div class="panel-heading">热门内容</div>
+    <div class="panel-body">
+        <!--热门文章-->
+        <div class="collect-hot-articles panel panel-info">
+            <div class="panel-heading">近7天内收藏热门</div>
+            <div class="panel-body">
+                <div class="book-list">
+                    <ul>
+                        <!--    <li>
+                                <div class="book-info">
+                                    <h3>NO.1</h3>
+                                    <h4>生活好像白开水</h4>
+                                    <p class="digital">
+                                        <em>123131</em>收藏数
+                                    </p>
+                                    <p class="author">
+                                        <a>情感</a>
+                                        <i>·</i>
+                                        <a>张三</a>
+                                    </p>
+                                </div>
+                            </li>
+                              <li>
+                                  <div class="book-info">
+                                      <h3>NO.2</h3>
+                                      <h4>传奇仍在继续</h4>
+                                      <p class="digital">
+                                          <em>6868</em>收藏数
+                                      </p>
+                                      <p class="author">
+                                          <a>情感</a>
+                                          <i>·</i>
+                                          <a>张三</a>
+                                      </p>
+                                  </div>
+                              </li>-->
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div class="click-hot-articles panel panel-info ">
+            <div class="panel-heading">近7天内点击热门</div>
+            <div class="panel-body">
+                <div class="book-list">
+                    <ul>
+                        <!-- <li>
+                             <div class="book-info">
+                                 <h3>NO.1</h3>
+                                 <h4>生活好像白开水</h4>
+                                 <p class="digital">
+                                     <em>123131</em>点击数
+                                 </p>
+                                 <p class="author">
+                                     <a>情感</a>
+                                     <i>·</i>
+                                     <a>张三</a>
+                                 </p>
+                             </div>
+                         </li>
+                         <li>
+                             <div class="book-info">
+                                 <h3>NO.2</h3>
+                                 <h4>传奇仍在继续</h4>
+                                 <p class="digital">
+                                     <em>6868</em>点击数
+                                 </p>
+                                 <p class="author">
+                                     <a>情感</a>
+                                     <i>·</i>
+                                     <a>张三</a>
+                                 </p>
+                             </div>
+                         </li>-->
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="panel panel-primary today-recommend " style="display: none">
+    <div class="panel-heading">今天的推荐内容</div>
+    <ul>
+       <!-- <li>
+            <div class="book-info">
+                <h4>article-title</h4>
+                <h4 class='article-id' style='display: none'>articleId</h4>
+                <div>
+                    <button class="btn-info btn-sm">阅读</button>
+                    <button class="btn-warning btn-sm">收藏</button>
+                    <button class="btn-primary btn-sm">查看</button>
+                </div>
+                <p class="author">
+                    <a>classify</a>
+                    <i>·</i>
+                    <a>authorName</a>
+                </p>
+            </div>
+        </li>-->
+    </ul>
+</div>
+</body>
+<script>
+    var user = new Object();
+    //加载文档事件
+    $(function () {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            data: null,
+            url: "getUserInfo.do",
+            success: function (result) {
+                user = result;
+                console.log(user);
+            }
+        })
+    });
+    $("#write-article").click(function () {
+        var homeURL = encodeURI("/home");
+        window.location.href = homeURL;
+    });
+</script>
+</html>

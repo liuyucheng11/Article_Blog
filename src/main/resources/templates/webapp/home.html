@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章阅读交流系统</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="./javaScript/jquery.min.js"></script>
+    <script src="./javaScript/bootstrap-select.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <link href="./javaScript/css/home.css" rel="stylesheet">
+    <link href="./javaScript/css/bootstrap-select.min.css" rel="stylesheet">
+    <script src="./javaScript/summernote.js"></script>
+    <script src="./javaScript/defaults-zh_CN.js"></script>
+    <style>
+        #information {
+            margin-top: 40px;
+            padding-left: 35%;
+        }
+
+        #labelForAuthor {
+            margin-left: 65px;
+        }
+
+        #article {
+            margin-top: 40px;
+            margin-left: 20%;
+        }
+
+        #doSubmit {
+            padding-left: 47%;
+            margin-top: 6px;
+        }
+
+
+    </style>
+</head>
+<body>
+<h1 class="text-center text-info"><strong>写点东西吧！</strong></h1>
+
+<div class="row" id="information">
+
+    <label class=".label label-info ">标题:</label><input type="text" name="title" id="title" placeholder="请输入标题">
+    <label id="labelForAuthor" class=".label label-warning ">作者:</label> <input type="text" name="author" id="author">
+</div>
+<div class="describe">
+
+    <textarea class="describe" placeholder="给文章写句话描述一下吧" cols="60" rows="4"></textarea>
+</div>
+<div id="article"></div>
+<!--<select class="selectpicker" multiple data-live-search="true" data-max-options="2">
+    <option value="1">广东省</option>
+    <option value="2">广西省</option>
+    <option value="3">福建省</option>
+    <option value="4">湖南省</option>
+    <option value="5">山东省</option>
+</select>-->
+<div  class="select-type">
+<select id ="article-type" class="form-control selectpicker " title="请选择您的文章分类" multiple data-live-search="true" data-max-options="1" data-size="5">
+    <option value="1" data-content="<span class='label label-success'>情感</span>">情感</option>
+    <option value="2" data-content="<span class='label label-info'>励志</span>">励志</option>
+    <option value="3" data-content="<span class='label label-warning'>悬疑</span>">悬疑</option>
+    <option value="4" data-content="<span class='label label-danger'>搞笑</span>">搞笑</option>
+    <option value="5" data-content="<span class='label label-success'>生活</span>">生活</option>
+    <option value="5" data-content="<span class='label label-primary'>诗歌</span>">诗歌</option>
+</select>
+</div>
+<div class="row" id="doSubmit">
+    <button class="btn btn-success " id="publishArticle">发布文章</button>
+</div>
+<script>
+    var loginUser = new Object();
+    $(document).ready(function () {
+        $('#article').summernote({
+            height: 500,
+            width: "69%",
+            placeholder: '请输入正文'
+        });//加载富文本框
+        var homeUrl = window.location.href;//获取传参userName
+        var getUserByUrl;
+        /* getUserByUrl = homeUrl.split("&");
+         var userName = getUserByUrl[1].split("=")[1].split("#")[0];
+         afterDecodeUserName = decodeURI(userName);*/
+        //取登录人信息
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: "getUserInfo.do",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                loginUser = result;
+                if (loginUser != null && loginUser != undefined) {
+                    $("#author").val(loginUser.userName);
+                    //设置为不可修改
+                    $("#author").attr("readOnly", true);
+                }
+
+            }
+        })
+
+
+        //文章内容
+        $('#publishArticle').click(
+            function () {
+                var selectType = new Object();
+                selectType = $("#article-type").val();
+                if(selectType==''){
+                    alert("请至少选择一个分类选项！");
+                    return;
+                }
+                console.log(selectType[0]);
+                var articleType = selectType[0];
+                var theArticle = {};
+                theArticle.title = $("#title").val();
+                if (theArticle.title == '') {
+                    alert("标题不能为空！");
+                    return;
+                }
+                theArticle.author = $("#author").val();
+                var artilecontent = $('#article').summernote('code');
+                theArticle.content = artilecontent;
+                theArticle.articleType = articleType;
+                theArticle.articleDesc = $("textarea.describe").val();
+                console.log(artilecontent);
+                //alert(artilecontent);
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: "publishArticle.do",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(theArticle),
+                    success: function (result) {
+                        if (result.status == "success") {
+                            alert("文章" + " 《" + result.artileTitle + " 》 " + "发布成功！");
+                            window.location.href = "/index";
+
+                        }
+                        else {
+                            alert("发布失败！")
+                        }
+                    }
+                })
+
+            }
+        )
+    });
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+.comment h3 {
+    margin: 1.5em 0 1em 0;
+    height: 1.7em;
+    line-height: 1.7em;
+    padding-left: 4px;
+    font-size: 15px;
+}
+.comment-content{
+    font-size: 13px;
+    width:70%;
+}
+.article-comments li {
+    overflow: hidden;
+    margin-bottom: 1.6em;
+    margin: 0;
+    position: relative;
+    font-size: 12px;
+    border-button:solid #f62656
+}
+ .comment-list  {
+    margin: 0;
+    position: relative;
+    font-size: 12px;
+}
+ .rating-md{
+     margin-left:15%;
+ }

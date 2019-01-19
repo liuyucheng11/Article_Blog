@@ -1,0 +1,23 @@
+.note-editor.note-frame {
+    border: 1px solid #a9a9a9;
+    margin-left: 15%;
+    margin-top: 40px;
+}
+div.describe{
+    margin-left: 35%;
+    margin-top: 40px;
+}
+div.describe>label{
+    margin-bottom: 60px;
+}
+:not(.input-group)>.bootstrap-select.form-control:not([class*=col-]) {
+    width: 40%;
+    margin-left: 30%;
+}
+select{
+    width: 20%;
+}
+.select-type{
+    width: 10%;
+    margin-left: 41%;
+}

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.articleshare.webproject.dao.userMapper">
+    <resultMap id="User" type="com.articleshare.webproject.domain.user.User">
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <id column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <id column="user_age" jdbcType="INTEGER" property="userAge"/>
+        <id column="user_address" jdbcType="VARCHAR" property="userAddress"/>
+        <id column="user_password" jdbcType="VARCHAR" property="userPassword"/>
+        <id column="user_occupation" jdbcType="VARCHAR" property="userOccupation"/>
+        <id column="sex" jdbcType="INTEGER" property="sex"/>
+        <id column="register_date" jdbcType="DATE" property="registerDate"/>
+    </resultMap>
+    <resultMap id="ArticleScore" type="com.articleshare.webproject.domain.article.ArticleScore">
+        <id column="evaluateId" jdbcType="INTEGER" property="evaluateId"/>
+        <id column="userId" jdbcType="INTEGER" property="userId"/>
+        <id column="articleId" jdbcType="INTEGER" property="articleId"/>
+        <id column="score" jdbcType="INTEGER" property="score"/>
+        <id column="comment" jdbcType="VARCHAR" property="comment"/>
+        <id column="create_date" jdbcType="DATE" property="createDate"/>
+        <id column="like_number" jdbcType="INTEGER" property="likeNumber"/>
+    </resultMap>
+    <sql id="Base_Article_Information">
+        article.articleId as articleId,
+        article.article_name as articleTitle,
+        user.user_name as userName ,
+        article.article_type as articleType,
+        article.publish_date as publishDate
+    </sql>
+    <select id="findByName" resultMap="User" parameterType="java.lang.String">
+        select * from user where 1=1 and user_name =#{name};
+    </select>
+    <delete id="deleteById" parameterType="java.lang.String">
+        delete from user where user_id=#{userId} ;
+    </delete>
+    <insert id="registerUser" parameterType="java.util.Map">
+        insert into user
+        (user_name,user_age,user_address,user_password,user_occupation,sex,register_date) VALUES (
+        #{userName},
+        #{userAge},
+        #{userAddress},
+        #{userPassword},
+        #{userOccupation},
+        #{sex},
+        #{registerDate}
+        )
+
+    </insert>
+    <insert id="CollectArticle">
+        insert into article_collect (user_id,article_id,collect_date) values(
+        #{userId},
+        #{articleId},
+        #{collectDate}
+        )
+    </insert>
+    <select id="checkCollectArticle" resultType="com.articleshare.webproject.domain.article.ArticleCollect">
+        select collect_id as collectId ,user_id as userId ,article_id as articleId , collect_date as collectDate
+        from article_collect where user_id = #{userId} and article_id =#{articleId}
+
+    </select>
+    <select id="qryUserCollection" resultType="java.util.Map">
+        select<include refid="Base_Article_Information"/>,article_collect.collect_date as collectDate ,
+        article_collect.collect_id as collectId from article_collect,article,user
+        where article_collect.user_id = #{userId} and article_collect.article_id = article.articleId and user.user_id =
+        article.userId
+    </select>
+    <delete id="deleteCollectById">
+        delete from article_collect where collect_id = #{collectId}
+    </delete>
+    <insert id="reportComment">
+        insert into article_score (userId,articleId,score,comment,create_date)
+          values  (#{userId},#{articleId},#{theScore},#{theCommentText},#{createDate});
+    </insert>
+    <select id="checkComment" resultType="Integer">
+        select  evaluateId from article_score where userId = #{userId} and  articleId = #{articleId}
+
+    </select>
+    <insert id="recordClickLog" parameterType="com.articleshare.webproject.domain.user.ClickLog">
+         insert  into click_log (user_id,article_id,create_date) values (
+             #{userId,jdbcType=NUMERIC},
+             #{articleId},
+             #{createDate}
+         );
+    </insert>
+    <insert id="saveInterest" parameterType="java.util.List">
+        insert into user_interest (user_id,article_type_id) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.userId},#{item.articleTypeId})
+        </foreach>
+    </insert>
+    <delete id="deleteInterest">
+        delete from user_interest where user_id = #{userId};
+    </delete>
+    <select id="qryInterest" resultType="com.articleshare.webproject.domain.user.UserInterest">
+        select user_interest.user_id as  userId , user_interest.article_type_id as articleTypeId
+        ,article_type.type_name as articleTypeName from user_interest,article_type
+        where user_interest.user_id = #{userId} and user_interest.article_type_id = article_type.article_type_id
+    </select>
+    <select id="qryUserArticleScore" resultMap="ArticleScore">
+        select * from article_score where userId = #{userId}
+
+    </select>
+    <select id="getSimilarUser" parameterType="java.util.List" resultMap="ArticleScore">
+        select * from article_score where articleId in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    <update id="resetPassword">
+        update user set user_password = #{newPassword} where  user_id = #{userId}
+
+    </update>
+    <select id="qryUserArticle" resultType="com.articleshare.webproject.domain.article.Article">
+        select  article.articleId as articleId,
+        article.article_name as articleTitle,
+        article.publish_date as publishDate
+         from article where userId = #{userId}
+    </select>
+
+</mapper>
